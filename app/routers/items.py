@@ -27,6 +27,6 @@ async def read_item(item_id: str):
         raise HTTPException(status_code=404, detail="Item not found")
     return {"name": fake_items_db[item_id]["name"]}
 
-@router.post('')
+@router.post('/')
 async def create_item(item: Item):
-    return {"item_name": item.name, "item_description": item.description}
+    return item
