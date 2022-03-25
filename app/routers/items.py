@@ -16,7 +16,7 @@ fake_items_db = {
             "name": "Plumbus"
             }, 
         "gun": {
-            "name": "Portal Gun"
+            "name": "Portal Gun * 2"
             }
     }
 
