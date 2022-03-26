@@ -1,10 +1,18 @@
-
 from dataclasses import dataclass
+from typing import Optional
+
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
+from database import Base
 
 from pydantic import BaseModel
 
 @dataclass
-class Item(BaseModel):
-    id: int
+class ItemBase:
+    """Item dataclass
+
+    Args:
+        BaseModel (BaseModel): _description_
+    """
     name: str
-    description: str
+    description: Optional[str] = None

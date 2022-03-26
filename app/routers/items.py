@@ -1,7 +1,6 @@
-from http.client import HTTPException
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 
-from models.items import Item
+from models.items import ItemBase
 from dependencies import get_token_header
 
 router = APIRouter(
@@ -12,12 +11,7 @@ router = APIRouter(
 )
 
 fake_items_db = {
-        "plumbus": {
-            "name": "Plumbus"
-            }, 
-        "gun": {
-            "name": "Portal Gun * 2"
-            }
+    
     }
 
 
@@ -25,8 +19,11 @@ fake_items_db = {
 async def read_item(item_id: str):
     if item_id not in fake_items_db:
         raise HTTPException(status_code=404, detail="Item not found")
-    return {"name": fake_items_db[item_id]["name"]}
+
+    return fake_items_db[item_id]
 
 @router.post('/')
-async def create_item(item: Item):
+async def create_item(item: ItemBase):
+    fake_items_db[item.name] = item
+    print(len(fake_items_db))
     return item
