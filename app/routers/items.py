@@ -22,6 +22,10 @@ async def read_item(item_id: str):
 
     return fake_items_db[item_id]
 
+@router.get('/')
+async def read_items():
+    return fake_items_db
+
 @router.post('/')
 async def create_item(item: ItemBase):
     fake_items_db[item.name] = item
