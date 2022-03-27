@@ -24,7 +24,10 @@ async def read_item(item_id: str):
 
 @router.get('/', response_model=list[ItemBase])
 async def read_items():
-    return fake_items_db
+    if len(fake_items_db) == 0:
+        raise HTTPException(status_code=404, detail="No Item exits")
+    results = list(fake_items_db.values())
+    return results
 
 @router.post('/')
 async def create_item(item: ItemBase):
