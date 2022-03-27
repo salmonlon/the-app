@@ -22,7 +22,7 @@ async def read_item(item_id: str):
 
     return fake_items_db[item_id]
 
-@router.get('/')
+@router.get('/', response_model=list[ItemBase])
 async def read_items():
     return fake_items_db
 

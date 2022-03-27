@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from pydantic.dataclasses import dataclass
 from typing import Optional
 
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
