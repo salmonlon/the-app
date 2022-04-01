@@ -7,7 +7,7 @@ services:
       # context: .
       # dockerfile: ./Dockerfile
     # command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 -m uvicorn app.main:app --host 0.0.0.0 --port 8000"]
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn main:app --host 0.0.0.0 --port 5001 --reload
     # to run docker compose in attached mode: docker-compose -f "docker-compose.debug.yml" up
     environment:
       DEBUG: 1
@@ -15,5 +15,5 @@ services:
       - ./app:/app
     restart: on-failure
     ports:
-      - 8000:8000
+      - 5001:5001
       - 5678:5678
