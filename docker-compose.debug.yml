@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  theapp:
+  backend:
     image: theapp
     build: ./app
       # context: .
@@ -17,3 +17,11 @@ services:
     ports:
       - 5001:5001
       - 5678:5678
+
+  frontend:
+    build: ./frontend
+    volumes:
+      - './frontend:/app'
+      - '/app/node_modules'
+    ports:
+      - 8080:8080
