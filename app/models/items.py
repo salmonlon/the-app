@@ -3,7 +3,6 @@ from typing import Optional
 
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
-from database import Base
 
 from pydantic import BaseModel
 

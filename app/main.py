@@ -1,8 +1,11 @@
 import time
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from dependencies import get_query_token
 from routers import items
+from database.register import register_tortoise
+from database.config import TORTOISE_ORM
 
 
 app = FastAPI(
@@ -25,6 +28,8 @@ async def add_process_time_header(request, call_next):
     process_time = time.time() - start_time
     response.headers["X-Process-Time"] = str(process_time)
     return response
+
+register_tortoise(app, config=TORTOISE_ORM, generate_schemas=False)
 
 @app.get("/")
 async def root():
