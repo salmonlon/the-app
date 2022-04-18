@@ -4,7 +4,7 @@ FROM python:3.10
 # EXPOSE 8000
 
 WORKDIR /app
-COPY ./app /app
+COPY . /app
 
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE=1
