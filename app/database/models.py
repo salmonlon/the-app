@@ -2,6 +2,14 @@ from enum import unique
 from sqlalchemy import null
 from tortoise import fields, models
 
+"""Model definition
+
+To sync the model definition with backend: 
+docker-compose exec backend aerich migrate
+docker-compose exec backend aerich upgrade
+
+"""
+
 class Users(models.Model):
     id = fields.IntField(pk=True)
     username = fields.CharField(max_length=20, unique=True)
