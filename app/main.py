@@ -1,11 +1,15 @@
 import time
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from tortoise import Tortoise
 
 from dependencies import get_query_token
 from routers import items
 from database.register import register_tortoise
 from database.config import TORTOISE_ORM
+
+# enable schemas to read relationship between models
+Tortoise.init_models(['database.models'], 'models')
 
 
 app = FastAPI(
