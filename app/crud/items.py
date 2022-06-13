@@ -3,7 +3,9 @@ from tortoise.exceptions import DoesNotExist
 
 from database.models import Items 
 from schemas.items import ItemOutSchema
+from schemas.token import Status
 
+# TODO: add pytest
 
 async def get_notes():
     return await ItemOutSchema.from_queryset(Items.all())
@@ -34,7 +36,7 @@ async def update_note(note_id, note, current_user) -> ItemOutSchema:
     raise HTTPException(status_code=403, detail=f"Not authorized to update")
 
 
-async def delete_note(note_id, current_user):
+async def delete_note(note_id, current_user) -> Status:
     try:
         db_note = await ItemOutSchema.from_queryset_single(Items.get(id=note_id))
     except DoesNotExist:
@@ -44,6 +46,6 @@ async def delete_note(note_id, current_user):
         deleted_count = await Items.filter(id=note_id).delete()
         if not deleted_count:
             raise HTTPException(status_code=404, detail=f"Note {note_id} not found")
-        return f"Deleted note {note_id}"
+        return Status(message=f"Deleted note {note_id}")
 
     raise HTTPException(status_code=403, detail=f"Not authorized to delete")

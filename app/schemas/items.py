@@ -6,17 +6,17 @@ from tortoise.contrib.pydantic import pydantic_model_creator
 from database.models import Items
 
 # for creating new item
-NoteInSchema = pydantic_model_creator(
+ItemInSchema = pydantic_model_creator(
     Items, name="ItemIn", exclude=["author_id"], exclude_readonly=True)
 
 # for retrieving item
-NoteOutSchema = pydantic_model_creator(
+ItemOutSchema = pydantic_model_creator(
     Items, name="Item", exclude =[
         "modified_at", "author.password", "author.created_at", "author.modified_at"
     ]
 )
 
 
-class UpdateNote(BaseModel):
+class UpdateItem(BaseModel):
     title: Optional[str]
     content: Optional[str]

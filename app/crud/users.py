@@ -4,6 +4,7 @@ from tortoise.exceptions import DoesNotExist, IntegrityError
 
 from database.models import Users
 from schemas.users import UserOutSchema
+from schemas.token import Status
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -21,7 +22,7 @@ async def create_user(user) -> UserOutSchema:
     return await UserOutSchema.from_tortoise_orm(user_obj)
 
 
-async def delete_user(user_id, current_user):
+async def delete_user(user_id, current_user) -> Status:
 
     # TODO: why user_id?
     # get user from db for the given user_id
@@ -35,6 +36,6 @@ async def delete_user(user_id, current_user):
         deleted_count = await Users.filter(id=user_id).delete()
         if not deleted_count:
             raise HTTPException(status_code=404, detail=f"User {user_id} not found")
-        return f"Deleted user {user_id}"
+        return Status(message=f"Deleted user {user_id}")
 
     raise HTTPException(status_code=403, detail=f"Not authorized to delete")
