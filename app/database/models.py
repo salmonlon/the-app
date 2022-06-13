@@ -1,10 +1,12 @@
-from enum import unique
-from sqlalchemy import null
 from tortoise import fields, models
 
 """Model definition
 
-To sync the model definition with backend: 
+Initial setup: 
+docker-compose exec backend aerich init -t database.config.TORTOISE_ORM
+docker-compose exec backend aerich init-db
+
+To sync the model definition with database: 
 docker-compose exec backend aerich migrate
 docker-compose exec backend aerich upgrade
 

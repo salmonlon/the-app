@@ -14,10 +14,12 @@ ENV PYTHONUNBUFFERED=1
 
 # Install pip requirements
 COPY requirements.txt .
-RUN python -m pip install -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
 # copy database migrations
 COPY migrations .
+# COPY aerich.ini .
 COPY pyproject.toml .
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
