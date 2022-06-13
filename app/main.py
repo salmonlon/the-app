@@ -1,12 +1,14 @@
-import time
-from fastapi import Depends, FastAPI
+# import time
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from tomlkit import item
 from tortoise import Tortoise
 
-from dependencies import get_query_token
-from routers import items
+# from dependencies import get_query_token
+# from routers import items
 from database.register import register_tortoise
 from database.config import TORTOISE_ORM
+from routes import users, items
 
 # enable schemas to read relationship between models
 Tortoise.init_models(['database.models'], 'models')
@@ -15,7 +17,6 @@ Tortoise.init_models(['database.models'], 'models')
 app = FastAPI(
     # dependencies=[Depends(get_query_token)]
     )
-app.include_router(items.router)
 
 app.add_middleware(
     CORSMiddleware,
@@ -25,15 +26,20 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-@app.middleware("http")
-async def add_process_time_header(request, call_next):
-    start_time = time.time()
-    response = await call_next(request)
-    process_time = time.time() - start_time
-    response.headers["X-Process-Time"] = str(process_time)
-    return response
+# routes
+app.include_router(users.router)
+app.include_router(items.router)
 
 register_tortoise(app, config=TORTOISE_ORM, generate_schemas=False)
+
+# @app.middleware("http")
+# async def add_process_time_header(request, call_next):
+#     start_time = time.time()
+#     response = await call_next(request)
+#     process_time = time.time() - start_time
+#     response.headers["X-Process-Time"] = str(process_time)
+#     return response
+
 
 @app.get("/")
 async def root():
