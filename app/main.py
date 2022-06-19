@@ -8,7 +8,7 @@ from tortoise import Tortoise
 # from routers import items
 from database.register import register_tortoise
 from database.config import TORTOISE_ORM
-from routes import users, items
+from routes import users, notes
 
 # enable schemas to read relationship between models
 Tortoise.init_models(['database.models'], 'models')
@@ -28,7 +28,7 @@ app.add_middleware(
 
 # routes
 app.include_router(users.router)
-app.include_router(items.router)
+app.include_router(notes.router)
 
 register_tortoise(app, config=TORTOISE_ORM, generate_schemas=False)
 

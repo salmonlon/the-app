@@ -16,7 +16,7 @@ UserOutSchema = pydantic_model_creator(
     Users, name="UserOut", exclude=["password", "created_at", "modified_at"]
 )
 
-# for retrieving user info to be used within the app, only sensitive data is excluded
+# for retrieving user info to be used within the app, only meta data is excluded
 UserDatabaseSchema = pydantic_model_creator(
     Users, name="User", exclude=["created_at", "modified_at"]
 )
