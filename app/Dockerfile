@@ -1,9 +1,12 @@
 # For more information, please refer to https://aka.ms/vscode-docker-python
 FROM python:3.10
 
-# EXPOSE 8000
-
 WORKDIR /app
+
+# Install dependencies first to speed up the build process
+COPY ./requirements.txt /app/requirements.txt
+RUN pip install -r requirements.txt
+
 COPY . /app
 
 # Keeps Python from generating .pyc files in the container
@@ -11,11 +14,6 @@ ENV PYTHONDONTWRITEBYTECODE=1
 
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED=1
-
-# Install pip requirements
-COPY requirements.txt .
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
 
 # copy database migrations
 COPY migrations .
