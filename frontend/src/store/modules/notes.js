@@ -1,0 +1,53 @@
+import axios from 'axios';
+
+const state = {
+  notes: null,
+  note: null
+};
+
+// retrieves the values of state.note and state.notes
+const getters = {
+  stateNotes: state => state.notes,
+  stateNote: state => state.note,
+};
+
+// actions make HTTP calls via Axios and a few of them perform a side effect by calling relevant mutations
+const actions = {
+  async createNote({dispatch}, note) {
+    await axios.post('notes', note);
+    await dispatch('getNotes');
+  },
+  async getNotes({commit}) {
+    let {data} = await axios.get('notes');
+    commit('setNotes', data);
+  },
+  async viewNote({commit}, id) {
+    let {data} = await axios.get(`note/${id}`);
+    commit('setNote', data);
+  },
+  // eslint-disable-next-line no-empty-pattern
+  async updateNote({}, note) {
+    await axios.patch(`note/${note.id}`, note.form);
+  },
+  // eslint-disable-next-line no-empty-pattern
+  async deleteNote({}, id) {
+    await axios.delete(`note/${id}`);
+  }
+};
+
+// make changes to state
+const mutations = {
+  setNotes(state, notes){
+    state.notes = notes;
+  },
+  setNote(state, note){
+    state.note = note;
+  },
+};
+
+export default {
+  state,
+  getters,
+  actions,
+  mutations
+};
