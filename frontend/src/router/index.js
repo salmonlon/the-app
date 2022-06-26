@@ -52,7 +52,7 @@ const routes = [
     component: EditNote,
     meta: {requiresAuth: true},
     props: true,
-  }
+  },
   {
     path: '/about',
     name: 'About',
