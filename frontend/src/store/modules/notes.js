@@ -37,6 +37,8 @@ const actions = {
 
 // make changes to state
 const mutations = {
+
+  // mutation receive the state and additional arguments, wrapped in an object
   setNotes(state, notes){
     state.notes = notes;
   },

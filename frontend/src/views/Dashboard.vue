@@ -65,7 +65,9 @@ export default {
     return this.$store.dispatch('getNotes');
   },
   computed: {
-    ...mapGetters({ notes: 'stateNotes'}),
+    ...mapGetters(
+        { notes: 'stateNotes'}
+      ),
   },
   methods: {
     ...mapActions(['createNote']),
