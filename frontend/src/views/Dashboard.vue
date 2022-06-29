@@ -65,6 +65,7 @@ export default {
     return this.$store.dispatch('getNotes');
   },
   computed: {
+    // https://v3.vuex.vuejs.org/guide/getters.html#the-mapgetters-helper
     ...mapGetters(
         { notes: 'stateNotes'}
       ),

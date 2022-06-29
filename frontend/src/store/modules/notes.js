@@ -13,6 +13,8 @@ const getters = {
 
 // actions make HTTP calls via Axios and a few of them perform a side effect by calling relevant mutations
 const actions = {
+
+  // {} is used for argument distructuring the context object (commit, dispatch, getters, state...)
   async createNote({dispatch}, note) {
     await axios.post('notes', note);
     await dispatch('getNotes');
