@@ -34,6 +34,7 @@ const actions = {
   // eslint-disable-next-line no-empty-pattern
   async deleteNote({}, id) {
     await axios.delete(`note/${id}`);
+    // TODO: clear note state
   }
 };
 

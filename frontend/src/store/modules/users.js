@@ -19,6 +19,8 @@ const actions = {
   },
   async logIn({dispatch}, user) {
     await axios.post('login', user);
+
+    // get user data and save to store
     await dispatch('viewMe');
   },
   async viewMe({commit}) {

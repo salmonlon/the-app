@@ -17,6 +17,7 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'Note',
   props: ['id'],
+  // lifecycle hook: when the component is created
   async created() {
     try {
       await this.viewNote(this.id);
