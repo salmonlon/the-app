@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import store from '@/store'
+
 import Home from '@/views/Home.vue'
 import Register from '@/views/Register.vue'
 import Login from '@/views/Login.vue'
@@ -68,5 +70,20 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+// navigation guards https://router.vuejs.org/guide/advanced/navigation-guards.html
+router.beforeEach((to, from, next) => {
+  // if the router requires auth, check if user is authenticated
+  // if not, redirect to login page
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if(store.getters.isAuthenticated) {
+      next();
+      return;
+    }
+    next('/login');
+  } else {
+    next();
+  }
+});
 
 export default router
