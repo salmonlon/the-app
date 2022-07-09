@@ -11,15 +11,23 @@
             <li class="nav-item">
               <router-link class="nav-link" to="/">Home</router-link>
             </li>
+            jj
             <li class="nav-item">
               <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
             </li>
+
             <li class="nav-item">
               <router-link class="nav-link" to="/profile">My Profile</router-link>
             </li>
+
+            <li class="nav-item">
+              <router-link class="nav-link" to="/admin">Admin</router-link>
+            </li>
+
             <li class="nav-item">
               <a class="nav-link" @click="logout">Log Out</a>
             </li>
+
           </ul>
           <ul v-else class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
@@ -32,6 +40,7 @@
               <router-link class="nav-link" to="/login">Log In</router-link>
             </li>
           </ul>
+
         </div>
       </div>
     </nav>
