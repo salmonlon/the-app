@@ -1,7 +1,7 @@
 <template>
   <div>
     <section>
-      <h1>Add new note</h1>
+      <h1>Anything New?</h1>
       <hr/><br/>
 
       <form @submit.prevent="submit">
