@@ -1,4 +1,5 @@
 from datetime import timedelta
+from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.encoders import jsonable_encoder
@@ -6,6 +7,7 @@ from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
 
 from tortoise.contrib.fastapi import HTTPNotFoundError
+from tortoise.exceptions import DoesNotExist
 
 import crud.users as crud
 from auth.users import validate_user
@@ -21,7 +23,7 @@ from auth.jwthandler import (
 
 router = APIRouter()
 
-
+### AUTHENTICATION ###
 @router.post("/register", response_model=UserOutSchema)
 async def create_user(user: UserInSchema) -> UserOutSchema:
     return await crud.create_user(user)
@@ -58,13 +60,36 @@ async def login(user: OAuth2PasswordRequestForm = Depends()):
     return response
 
 
+### GET USER INFO ###
 @router.get(
     "/users/whoami", response_model=UserOutSchema, dependencies=[Depends(get_current_user)]
 )
 async def read_users_me(current_user: UserOutSchema = Depends(get_current_user)):
     return current_user
 
+@router.get(
+    "/users", 
+    response_model=List[UserOutSchema], 
+    dependencies=[Depends(get_current_user)]
+)
+async def read_all_users():
+    return await crud.get_users()
 
+@router.get(
+    "/users/{user_id}", 
+    response_model=UserOutSchema, 
+    dependencies=[Depends(get_current_user)]
+)
+async def read_user(user_id: int):
+    try: 
+        return await crud.get_user(user_id)
+    except DoesNotExist:
+        raise HTTPException(
+            status_code=404, 
+            detail=f"User {user_id} not found"
+        )
+
+### DELETE USER ###
 @router.delete(
     "/user/{user_id}",
     response_model=Status,

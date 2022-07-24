@@ -72,6 +72,14 @@ async def get_current_user(token: str = Depends(security)):
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    """ 
+    Validate the access token and return the user
+    Raises:
+        credentials_exception: _description_
+
+    Returns:
+        _type_: UserOutSchema
+    """
 
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
