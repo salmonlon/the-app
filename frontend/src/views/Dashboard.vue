@@ -30,13 +30,18 @@
       <div v-if="notes.length">
         <div class="row row-cols-3">
           <div v-for="note in notes" :key="note.id" class="notes">
-            <div class="card col" style="width: 18rem;">
+            <div class="card col">
               <div class="card-body">
                 <ul>
                   <li><strong>Note Title:</strong> {{ note.title }}</li>
-                  <li><strong>Author:</strong> {{ note.author.username }}</li>
+                  <!-- <li><strong>Author:</strong> {{ note.author.username }}</li> -->
                   <li><router-link :to="{name: 'Note', params:{id: note.id}}">View</router-link></li>
                 </ul>
+
+                <div class="row row-cols-2 justify-content-around">
+                  <button type="button" class="btn btn-success col-5">Done</button>
+                  <button type="button" class="btn btn-warning col-5">Later</button>
+                </div>
               </div>
             <!-- <br/> -->
             </div>
@@ -56,7 +61,7 @@
       <div v-if="users.length">
         <div class="row row-cols-3">
           <div v-for="user in users" :key="user.id" class="users">
-              <div class="card col" style="width: 18rem;">
+              <div class="card col">
                   <div class="card-body">
                       <ul>
                           <li><strong>Username:</strong> {{ user.username }}</li>
