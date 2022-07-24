@@ -28,17 +28,19 @@
       <hr/><br/>
 
       <div v-if="notes.length">
-        <div v-for="note in notes" :key="note.id" class="notes">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <ul>
-                <li><strong>Note Title:</strong> {{ note.title }}</li>
-                <li><strong>Author:</strong> {{ note.author.username }}</li>
-                <li><router-link :to="{name: 'Note', params:{id: note.id}}">View</router-link></li>
-              </ul>
+        <div class="row row-cols-3">
+          <div v-for="note in notes" :key="note.id" class="notes">
+            <div class="card col" style="width: 18rem;">
+              <div class="card-body">
+                <ul>
+                  <li><strong>Note Title:</strong> {{ note.title }}</li>
+                  <li><strong>Author:</strong> {{ note.author.username }}</li>
+                  <li><router-link :to="{name: 'Note', params:{id: note.id}}">View</router-link></li>
+                </ul>
+              </div>
+            <!-- <br/> -->
             </div>
           </div>
-          <br/>
         </div>
       </div>
 
@@ -52,8 +54,9 @@
       <hr/><br/>
 
       <div v-if="users.length">
+        <div class="row row-cols-3">
           <div v-for="user in users" :key="user.id" class="users">
-              <div class="card" style="width: 18rem;">
+              <div class="card col" style="width: 18rem;">
                   <div class="card-body">
                       <ul>
                           <li><strong>Username:</strong> {{ user.username }}</li>
@@ -64,6 +67,7 @@
               </div>
               <br/>
           </div>
+        </div>
       </div>
     </section>
   </div>
