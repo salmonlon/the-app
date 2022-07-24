@@ -10,6 +10,14 @@ from schemas.token import Status
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
+async def get_users():
+    # TODO: check if user is admin
+    return await UserOutSchema.from_queryset(Users.all())
+
+async def get_user(user_id): 
+    # TODO: check if user is admin
+    return await UserOutSchema.from_queryset_single(Users.get(id=user_id))
+
 # TODO: add typing
 async def create_user(user) -> UserOutSchema:
     user.password = pwd_context.encrypt(user.password)
