@@ -29,7 +29,7 @@ const actions = {
     let {data} = await axios.get('users/whoami');
     await commit('setUser', data);
   },
-  async allUsers({commit}) {
+  async getUsers({commit}) {
     let {data} = await axios.get('users');
     await commit('setUsers', data);
   },

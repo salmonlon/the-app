@@ -46,6 +46,26 @@
         <p>Nothing to see. Check back later.</p>
       </div>
     </section>
+
+    <section>
+      <h1>Users</h1>
+      <hr/><br/>
+
+      <div v-if="users.length">
+          <div v-for="user in users" :key="user.id" class="users">
+              <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                      <ul>
+                          <li><strong>Username:</strong> {{ user.username }}</li>
+                          <li><strong>Email:</strong> {{ user.email }}</li>
+                          <li><router-link :to="{name: 'User', params:{id: user.id}}">View</router-link></li>
+                      </ul>
+                  </div>
+              </div>
+              <br/>
+          </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -68,6 +88,9 @@ export default {
     // https://v3.vuex.vuejs.org/guide/getters.html#the-mapgetters-helper
     ...mapGetters(
         { notes: 'stateNotes'}
+      ),
+    ...mapGetters(
+        { users: 'stateUsers' }
       ),
   },
   methods: {
