@@ -2,11 +2,13 @@ import axios from 'axios';
 
 const state = {
   user: null,
+  users: null
 };
 
 const getters = {
   isAuthenticated: state => !!state.user,
   stateUser: state => state.user,
+  stateUsers: state => state.users,
 };
 
 const actions = {
@@ -27,6 +29,10 @@ const actions = {
     let {data} = await axios.get('users/whoami');
     await commit('setUser', data);
   },
+  async allUsers({commit}) {
+    let {data} = await axios.get('users');
+    await commit('setUsers', data);
+  },
   // eslint-disable-next-line no-empty-pattern
   async deleteUser({}, id) {
     await axios.delete(`user/${id}`);
@@ -40,6 +46,9 @@ const actions = {
 const mutations = {
   setUser(state, username) {
     state.user = username;
+  },
+  setUsers(state, users) {
+    state.users = users;
   },
   logout(state, user){
     state.user = user;

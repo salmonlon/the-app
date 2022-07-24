@@ -10,6 +10,7 @@ import Note from '@/views/Note.vue'
 import EditNote from '@/views/EditNote.vue'
 import Dashboard from '@/views/Dashboard.vue'
 import Profile from '@/views/Profile.vue'
+import Admin from '@/views/Admin.vue'
 
 Vue.use(VueRouter)
 
@@ -54,6 +55,12 @@ const routes = [
     component: EditNote,
     meta: {requiresAuth: true},
     props: true,
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    Component: Admin, 
+    meta: {requiresAuth: true}
   },
   {
     path: '/about',
