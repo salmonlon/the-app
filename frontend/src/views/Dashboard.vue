@@ -1,8 +1,8 @@
 <template>
   <div>
-    <section>
+    <section class="row">
       <h1>Anything New?</h1>
-      <hr/><br/>
+      <hr/>
 
       <form @submit.prevent="submit">
         <div class="mb-3">
@@ -21,11 +21,10 @@
       </form>
     </section>
 
-    <br/><br/>
 
-    <section>
+    <section class="row mt-4">
       <h1>Notes</h1>
-      <hr/><br/>
+      <hr/>
 
       <div v-if="notes.length">
         <div class="row row-cols-3">
@@ -54,9 +53,9 @@
       </div>
     </section>
 
-    <section>
+    <section class="row mt-4">
       <h1>Users</h1>
-      <hr/><br/>
+      <hr/>
 
       <div v-if="users.length">
         <div class="row row-cols-3">
