@@ -24,16 +24,16 @@ const actions = {
     commit('setNotes', data);
   },
   async viewNote({commit}, id) {
-    let {data} = await axios.get(`note/${id}`);
+    let {data} = await axios.get(`notes/${id}`);
     commit('setNote', data);
   },
   // eslint-disable-next-line no-empty-pattern
   async updateNote({}, note) {
-    await axios.patch(`note/${note.id}`, note.form);
+    await axios.patch(`notes/${note.id}`, note.form);
   },
   // eslint-disable-next-line no-empty-pattern
   async deleteNote({}, id) {
-    await axios.delete(`note/${id}`);
+    await axios.delete(`notes/${id}`);
     // TODO: clear note state
   }
 };

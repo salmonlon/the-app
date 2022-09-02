@@ -11,11 +11,14 @@ from schemas.token import Status
 from schemas.users import UserOutSchema
 
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/notes",
+    tags=["Notes"]
+)
 
 
 @router.get(
-    "/notes",
+    "/",
     response_model=List[NoteOutSchema],
     dependencies=[Depends(get_current_user)],
 )
@@ -24,7 +27,7 @@ async def get_notes():
 
 
 @router.get(
-    "/note/{note_id}",
+    "/{note_id}",
     response_model=NoteOutSchema,
     dependencies=[Depends(get_current_user)],
 )
@@ -39,7 +42,7 @@ async def get_note(note_id: int) -> NoteOutSchema:
 
 
 @router.post(
-    "/notes", response_model=NoteOutSchema, dependencies=[Depends(get_current_user)]
+    "/", response_model=NoteOutSchema, dependencies=[Depends(get_current_user)]
 )
 async def create_note(
     note: NoteInSchema, current_user: UserOutSchema = Depends(get_current_user)
@@ -48,7 +51,7 @@ async def create_note(
 
 
 @router.patch(
-    "/note/{note_id}",
+    "/{note_id}",
     dependencies=[Depends(get_current_user)],
     response_model=NoteOutSchema,
     responses={404: {"model": HTTPNotFoundError}},
@@ -62,7 +65,7 @@ async def update_note(
 
 
 @router.delete(
-    "/note/{note_id}",
+    "/{note_id}",
     response_model=Status,
     responses={404: {"model": HTTPNotFoundError}},
     dependencies=[Depends(get_current_user)],
