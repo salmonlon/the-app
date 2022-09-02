@@ -17,7 +17,7 @@ docker-compose exec backend aerich upgrade
 
 class NoteStatusEnum(str, Enum):
     active = "active"
-    completed = "completed"
+    completed = "complete"
     deleted = "deleted"
 
 class Users(models.Model):

@@ -35,6 +35,9 @@ const actions = {
   async deleteNote({}, id) {
     await axios.delete(`notes/${id}`);
     // TODO: clear note state
+  },
+  async completeNote({}, id) {
+    await axios.patch(`notes/${id}/complete`);
   }
 };
 

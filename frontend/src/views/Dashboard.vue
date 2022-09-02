@@ -28,17 +28,18 @@
 
       <div v-if="notes.length">
         <div class="row row-cols-3">
-          <div v-for="note in notes" :key="note.id" class="notes">
+          <div v-for="note in notes" :key="note.id" v-bind:id="note.id" class="notes">
             <div class="card col">
               <div class="card-body">
                 <ul>
                   <li><strong>Note Title:</strong> {{ note.title }}</li>
+                  <li> {{ note.status }}</li>
                   <!-- <li><strong>Author:</strong> {{ note.author.username }}</li> -->
                   <li><router-link :to="{name: 'Note', params:{id: note.id}}">View</router-link></li>
                 </ul>
 
                 <div class="row row-cols-2 justify-content-around">
-                  <button type="button" class="btn btn-success col-5">Done</button>
+                  <button v-on:click="complete(note.id)" type="button" class="btn btn-success col-5">Done</button>
                   <button type="button" class="btn btn-warning col-5">Later</button>
                 </div>
               </div>
@@ -104,12 +105,15 @@ export default {
   methods: {
     ...mapActions(['createNote']),
     async submit() {
+      // TODO: clear form after submission
       await this.createNote(this.form);
     },
 
-    async completeNote() {
-      await this.completeNote();
+    ...mapActions(['completeNote']),
+    async complete(id) {
+      await this.completeNote(id);
     },
+
   },
 };
 </script>

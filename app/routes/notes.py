@@ -63,6 +63,17 @@ async def update_note(
 ) -> NoteOutSchema:
     return await crud.update_note(note_id, note, current_user)
 
+@router.patch(
+    "/{note_id}/complete",
+    dependencies=[Depends(get_current_user)],
+    response_model=NoteOutSchema,
+    responses={404: {"model": HTTPNotFoundError}},
+)
+async def complete_note(
+    note_id: int,
+    current_user: UserOutSchema = Depends(get_current_user),
+) -> NoteOutSchema:
+    return await crud.update_note(note_id, UpdateNote(status="complete"), current_user)
 
 @router.delete(
     "/{note_id}",
