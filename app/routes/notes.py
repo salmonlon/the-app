@@ -22,8 +22,11 @@ router = APIRouter(
     response_model=List[NoteOutSchema],
     dependencies=[Depends(get_current_user)],
 )
-async def get_notes():
-    return await crud.get_notes()
+async def get_notes(status: str = None):
+    if status:
+        return await crud.get_notes(status=status)
+    else: 
+        return await crud.get_notes()
 
 
 @router.get(

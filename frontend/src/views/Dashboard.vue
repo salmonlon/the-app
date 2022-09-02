@@ -91,7 +91,7 @@ export default {
     };
   },
   created: function() {
-    return this.$store.dispatch('getNotes');
+    return this.$store.dispatch('getActiveNotes');
   },
   computed: {
     // https://v3.vuex.vuejs.org/guide/getters.html#the-mapgetters-helper

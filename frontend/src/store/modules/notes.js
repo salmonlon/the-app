@@ -17,10 +17,18 @@ const actions = {
   // {} is used for argument distructuring the context object (commit, dispatch, getters, state...)
   async createNote({dispatch}, note) {
     await axios.post('notes', note);
-    await dispatch('getNotes');
+    await dispatch('getActiveNotes');
   },
   async getNotes({commit}) {
     let {data} = await axios.get('notes');
+    commit('setNotes', data);
+  },
+  async getActiveNotes({commit}) {
+    let {data} = await axios.get('notes', {
+      params: {
+        status: 'active'
+      }
+    });
     commit('setNotes', data);
   },
   async viewNote({commit}, id) {
@@ -39,7 +47,7 @@ const actions = {
   async completeNote({dispatch}, id) {
     await axios.patch(`notes/${id}/complete`);
     // TODO: refresh the current note only
-    await dispatch('getNotes');
+    await dispatch('getActiveNotes');
   }
 };
 

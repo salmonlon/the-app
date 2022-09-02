@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import HTTPException
 from tortoise.exceptions import DoesNotExist
 
@@ -6,7 +7,11 @@ from schemas.notes import NoteOutSchema
 from schemas.token import Status  
 
 
-async def get_notes():
+async def get_notes(status: str = None) -> List[NoteOutSchema]:
+    if status:
+        notes = Notes.filter(status=status)
+        return await NoteOutSchema.from_queryset(notes)
+
     return await NoteOutSchema.from_queryset(Notes.all())
 
 
