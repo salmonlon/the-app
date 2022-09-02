@@ -1,6 +1,3 @@
-import imp
-
-
 import os
 
 TORTOISE_ORM = {

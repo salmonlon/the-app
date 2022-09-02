@@ -106,6 +106,10 @@ export default {
     async submit() {
       await this.createNote(this.form);
     },
+
+    async completeNote() {
+      await this.completeNote();
+    },
   },
 };
 </script>

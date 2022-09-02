@@ -1,5 +1,6 @@
 # import time
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from tomlkit import item
 from tortoise import Tortoise
@@ -43,4 +44,4 @@ register_tortoise(app, config=TORTOISE_ORM, generate_schemas=False)
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return RedirectResponse(url='/docs')
