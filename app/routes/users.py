@@ -20,8 +20,10 @@ from auth.jwthandler import (
     ACCESS_TOKEN_EXPIRE_MINUTES,
 )
 
-
-router = APIRouter()
+# TODO: consolidate user route
+router = APIRouter(
+    tags=["Admin"]
+)
 
 ### AUTHENTICATION ###
 @router.post("/register", response_model=UserOutSchema)
