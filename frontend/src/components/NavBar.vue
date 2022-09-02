@@ -20,6 +20,11 @@
             </li>
 
             <li class="nav-item">
+              <router-link class="nav-link" to="/admin">Admin</router-link>
+            </li>
+
+
+            <li class="nav-item">
               <a class="nav-link" @click="logout">Log Out</a>
             </li>
 

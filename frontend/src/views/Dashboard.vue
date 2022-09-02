@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="row">
-      <h1>Anything New?</h1>
+      <h1>How's your day?</h1>
       <hr/>
 
       <form @submit.prevent="submit">
@@ -54,27 +54,6 @@
       </div>
     </section>
 
-    <section class="row mt-4">
-      <h1>Users</h1>
-      <hr/>
-
-      <div v-if="users.length">
-        <div class="row row-cols-3">
-          <div v-for="user in users" :key="user.id" class="users">
-              <div class="card col">
-                  <div class="card-body">
-                      <ul>
-                          <li><strong>Username:</strong> {{ user.username }}</li>
-                          <li><strong>Email:</strong> {{ user.email }}</li>
-                          <li><router-link :to="{name: 'User', params:{id: user.id}}">View</router-link></li>
-                      </ul>
-                  </div>
-              </div>
-              <br/>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 </template>
 
