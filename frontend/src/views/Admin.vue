@@ -13,9 +13,9 @@
                                 <ul>
                                     <li><strong>Username:</strong> {{ user.username }}</li>
                                     <li><strong>Email:</strong> {{ user.email }}</li>
-                                    <li>
+                                    <!-- <li>
                                         <router-link :to="{ name: 'User', params: { id: user.id } }">View</router-link>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 export default {
     name: 'Admin',
     data() {

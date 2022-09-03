@@ -63,12 +63,6 @@ const routes = [
     meta: {requiresAuth: true, requiresAdmin: true}
   },
   {
-    path: '/user/:id',
-    name: 'User',
-    component: User,
-    meta: {requiresAuth: true, requiresAdmin: true},
-  },
-  {
     path: '/about',
     name: 'About',
     // route level code-splitting
