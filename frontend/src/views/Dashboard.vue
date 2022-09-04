@@ -77,9 +77,9 @@ export default {
     ...mapGetters(
         { notes: 'stateNotes'}
       ),
-    ...mapGetters(
-        { users: 'stateUsers' }
-      ),
+    // ...mapGetters(
+    //     { users: 'stateUsers' }
+    //   ),
   },
   methods: {
     ...mapActions(['createNote']),

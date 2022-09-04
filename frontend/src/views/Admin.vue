@@ -39,7 +39,7 @@ export default {
         };
     },
     created: function () {
-        return this.$store.dispatch('getActiveNotes');
+        return this.$store.dispatch('getUsers');
     },
     computed: {
         // https://v3.vuex.vuejs.org/guide/getters.html#the-mapgetters-helper

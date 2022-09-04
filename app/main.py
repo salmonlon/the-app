@@ -43,5 +43,5 @@ register_tortoise(app, config=TORTOISE_ORM, generate_schemas=False)
 
 
 @app.get("/")
-async def root():
+async def doc_redirect():
     return RedirectResponse(url='/docs')
