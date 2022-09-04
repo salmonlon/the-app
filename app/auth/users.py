@@ -31,10 +31,13 @@ async def validate_user(user: OAuth2PasswordRequestForm = Depends()):
             detail="Incorrect username or password",
         )
 
+    # verify the input password against the hashed password
     if not verify_password(user.password, db_user.password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
         )
+    
+    # TODO: create exception class for this
 
     return db_user
