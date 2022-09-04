@@ -400,6 +400,10 @@ yarn-error.log
 
 ### aerich ###
 app/migrations/models/*
+app/dev_migrations/models/*
+
+### certificates ###
+app/ssl/*
 
 # End of https://www.toptal.com/developers/gitignore/api/vue,vuejs
 
