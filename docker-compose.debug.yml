@@ -11,13 +11,14 @@ services:
     # to run docker compose in attached mode: docker-compose -f "docker-compose.debug.yml" up
     environment:
       - DEBUG:1
-      - DATABASE_URL=postgres://ttadmin:ttadmin@db:5432/ttadmin_dev
     volumes:
       - ./app:/app
     restart: on-failure
     ports:
       - 5001:5001
       - 5678:5678
+    env_file:
+      - .env
     depends_on:
       - db
 
