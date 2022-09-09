@@ -4,7 +4,7 @@
       <h1>How's your day?</h1>
       <hr/>
 
-      <form @submit.prevent="submit">
+      <form ref="taskForm" @submit.prevent="submit">
         <div class="mb-3">
           <label for="title" class="form-label">Title:</label>
           <input type="text" name="title" v-model="form.title" class="form-control" />
@@ -76,16 +76,16 @@ export default {
     // https://v3.vuex.vuejs.org/guide/getters.html#the-mapgetters-helper
     ...mapGetters(
         { notes: 'stateNotes'}
-      ),
-    // ...mapGetters(
-    //     { users: 'stateUsers' }
-    //   ),
+      )
   },
   methods: {
     ...mapActions(['createNote']),
     async submit() {
-      // TODO: clear form after submission
       await this.createNote(this.form);
+      this.form = {
+        title: '',
+        content: '',
+      };
     },
 
     ...mapActions(['completeNote']),
