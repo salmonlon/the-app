@@ -19,7 +19,7 @@
               <router-link class="nav-link" to="/profile">My Profile</router-link>
             </li>
 
-            <li class="nav-item">
+            <li v-if="isAdmin" class="nav-item">
               <router-link class="nav-link" to="/admin">Admin</router-link>
             </li>
 
@@ -53,6 +53,9 @@ export default {
   computed: {
     isLoggedIn: function() {
       return this.$store.getters.isAuthenticated;
+    },
+    isAdmin: function() {
+      return this.$store.getters.isAdmin;
     }
   },
   methods: {

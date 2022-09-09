@@ -7,6 +7,7 @@ const state = {
 
 const getters = {
   isAuthenticated: state => !!state.user,
+  isAdmin: state => state.user && state.user.role === 'admin',
   stateUser: state => state.user,
   stateUsers: state => state.users,
 };
