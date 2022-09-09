@@ -87,6 +87,7 @@ router.beforeEach((to, from, next) => {
       next();
       return;
     }
+    store.dispatch('logout');
     next('/login');
   } else {
     next();

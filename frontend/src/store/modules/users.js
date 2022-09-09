@@ -39,7 +39,7 @@ const actions = {
   },
   async logOut({commit}) {
     await commit('setUser', null);
-    commit('logout', user);
+    // commit('logout', user);
   }
 };
 

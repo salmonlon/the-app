@@ -18,9 +18,12 @@ async def get_user(user_id):
     # TODO: check if user is admin
     return await UserOutSchema.from_queryset_single(Users.get(id=user_id))
 
-# TODO: add typing
 async def create_user(user: UserInSchema) -> UserOutSchema:
+    # TODO: if the user table has no user, the first user will be admin
     user.password = pwd_context.encrypt(user.password)
+
+    if not await Users.all():
+        user.role = "admin"
 
     try:
         user_obj = await Users.create(**user.dict(exclude_unset=True))
