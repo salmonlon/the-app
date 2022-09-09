@@ -38,7 +38,7 @@ const actions = {
     await axios.delete(`user/${id}`);
   },
   async logOut({commit}) {
-    let user = null;
+    await commit('setUser', null);
     commit('logout', user);
   }
 };

@@ -3,7 +3,7 @@ from passlib.context import CryptContext
 from tortoise.exceptions import IntegrityError, DoesNotExist
 
 from database.models import Users
-from schemas.users import UserOutSchema
+from schemas.users import UserOutSchema, UserInSchema
 from schemas.token import Status
 
 
@@ -19,7 +19,7 @@ async def get_user(user_id):
     return await UserOutSchema.from_queryset_single(Users.get(id=user_id))
 
 # TODO: add typing
-async def create_user(user) -> UserOutSchema:
+async def create_user(user: UserInSchema) -> UserOutSchema:
     user.password = pwd_context.encrypt(user.password)
 
     try:
