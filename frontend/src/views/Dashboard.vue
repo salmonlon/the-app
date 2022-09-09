@@ -6,11 +6,11 @@
 
       <form ref="taskForm" @submit.prevent="submit">
         <div class="mb-3">
-          <label for="title" class="form-label">Title:</label>
+          <label for="title" class="form-label">Task:</label>
           <input type="text" name="title" v-model="form.title" class="form-control" />
         </div>
         <div class="mb-3">
-          <label for="content" class="form-label">Content:</label>
+          <label for="content" class="form-label">Note:</label>
           <textarea
             name="content"
             v-model="form.content"
@@ -81,6 +81,7 @@ export default {
   methods: {
     ...mapActions(['createNote']),
     async submit() {
+      // TODO: prevent submitting empty form
       await this.createNote(this.form);
       this.form = {
         title: '',
