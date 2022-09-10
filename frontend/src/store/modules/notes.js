@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from '@/store';
 
 const state = {
   notes: null,
@@ -26,7 +27,8 @@ const actions = {
   async getActiveNotes({commit}) {
     let {data} = await axios.get('notes', {
       params: {
-        status: 'active'
+        status: 'active', 
+        user: store.getters.stateUser.username
       }
     });
     commit('setNotes', data);
