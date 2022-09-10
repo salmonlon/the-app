@@ -7,7 +7,11 @@
       <form ref="taskForm" @submit.prevent="submit">
         <div class="mb-3">
           <label for="title" class="form-label">Task:</label>
-          <input type="text" name="title" v-model="form.title" class="form-control" />
+          <input 
+            type="text" 
+            name="title" 
+            v-model="form.title" 
+            class="form-control" />
         </div>
         <div class="mb-3">
           <label for="content" class="form-label">Note:</label>
