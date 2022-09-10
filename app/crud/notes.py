@@ -2,14 +2,22 @@ from typing import List
 from fastapi import HTTPException
 from tortoise.exceptions import DoesNotExist
 
-from database.models import Notes
+from database.models import Notes, Users
 from schemas.notes import NoteOutSchema
+from schemas.users import UserOutSchema
 from schemas.token import Status  
 
 
-async def get_notes(status: str = None) -> List[NoteOutSchema]:
-    if status:
-        notes = Notes.filter(status=status)
+async def get_notes(status: str = None, user: str = None) -> List[NoteOutSchema]:
+    if status or user:
+        if status and user:
+            # TODO: user Q expression
+            current_user = await UserOutSchema.from_queryset_single(Users.get(username=user))
+            notes = Notes.filter(status=status, author=current_user.id)
+        elif status:
+            notes = Notes.filter(status=status)
+        elif user:
+            notes = Notes.filter(author=user)
         return await NoteOutSchema.from_queryset(notes)
 
     return await NoteOutSchema.from_queryset(Notes.all())

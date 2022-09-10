@@ -38,7 +38,7 @@ class Notes(models.Model):
     title = fields.CharField(max_length=225)
     content = fields.TextField()
     status: NoteStatusEnum = fields.CharEnumField(NoteStatusEnum, max_length=8, default=NoteStatusEnum.active)
-    author = fields.ForeignKeyField("models.Users", related_name="note")
+    author: fields.ForeignKeyRelation[Users] = fields.ForeignKeyField("models.Users", related_name="note")
     created_at = fields.DatetimeField(auto_now_add=True)
     modified_at = fields.DatetimeField(auto_now=True)
 
