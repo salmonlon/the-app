@@ -32,7 +32,7 @@ services:
   
   # Login to local db
   # 1. attach shell to db container: docker exec -it <container_id> /bin/bash
-  # 2. psql -h db -U postgres
+  # 2. psql -U ttadmin ttadmin_dev
   db:
     image: postgres:13
     expose:
