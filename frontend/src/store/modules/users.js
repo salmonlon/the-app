@@ -21,10 +21,15 @@ const actions = {
     await dispatch('logIn', UserForm);
   },
   async logIn({dispatch}, user) {
-    await axios.post('login', user);
-
-    // get user data and save to store
-    await dispatch('viewMe');
+    try {
+      
+      await axios.post('login', user);
+      await dispatch('viewMe');
+    } catch (error) {
+      
+      // show warning message
+      console.log(error)
+    }
   },
   async viewMe({commit}) {
     let {data} = await axios.get('users/whoami');
@@ -39,8 +44,8 @@ const actions = {
     await axios.delete(`user/${id}`);
   },
   async logOut({commit}) {
-    await commit('setUser', null);
-    // commit('logout', user);
+    commit('setUser', null);
+    this.reset();
   }
 };
 
