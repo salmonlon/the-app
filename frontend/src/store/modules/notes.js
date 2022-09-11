@@ -25,6 +25,7 @@ const actions = {
     commit('setNotes', data);
   },
   async getActiveNotes({commit}) {
+    // use rootState for accessing username
     let {data} = await axios.get('notes', {
       params: {
         status: 'active', 

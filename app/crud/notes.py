@@ -11,7 +11,7 @@ from schemas.token import Status
 async def get_notes(status: str = None, user: str = None) -> List[NoteOutSchema]:
     if status or user:
         if status and user:
-            # TODO: user Q expression
+            # TODO: use Q expression
             current_user = await UserOutSchema.from_queryset_single(Users.get(username=user))
             notes = Notes.filter(status=status, author=current_user.id)
         elif status:

@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 import store from '@/store'
 
@@ -11,8 +10,6 @@ import EditNote from '@/views/EditNote.vue'
 import Dashboard from '@/views/Dashboard.vue'
 import Profile from '@/views/Profile.vue'
 import Admin from '@/views/Admin.vue'
-
-Vue.use(VueRouter)
 
 const routes = [
   {
@@ -72,10 +69,15 @@ const routes = [
   }
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+// const router = new VueRouter({
+//   mode: 'history',
+//   base: process.env.BASE_URL,
+//   routes
+// })
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes: routes
 })
 
 // navigation guards https://router.vuejs.org/guide/advanced/navigation-guards.html

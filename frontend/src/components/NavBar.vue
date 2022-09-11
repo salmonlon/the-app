@@ -48,15 +48,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'NavBar',
   computed: {
-    isLoggedIn: function() {
-      return this.$store.getters.isAuthenticated;
-    },
-    isAdmin: function() {
-      return this.$store.getters.isAdmin;
-    }
+    ...mapGetters({
+      isLoggedIn: 'isAuthenticated',
+      isAdmin: 'isAdmin'
+    })
+
+    // isLoggedIn: function() {
+    //   return this.$store.getters.isAuthenticated;
+    // },
+    // isAdmin: function() {
+    //   return this.$store.getters.isAdmin;
+    // }
   },
   methods: {
     async logout () {
