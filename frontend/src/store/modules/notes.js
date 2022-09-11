@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from '@/store';
 
 const state = {
-  notes: null,
+  notes: [],
   note: null
 };
 

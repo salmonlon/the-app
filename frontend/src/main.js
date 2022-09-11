@@ -13,17 +13,19 @@ axios.defaults.baseURL = 'http://localhost:5001/'
 
 // Vue.config.productionTip = false
 
+
+// TODO: reenable this
 // axios interceptors, redirects to login page if 401 unauthorized
-axios.interceptors.response.use(undefined, function (error) {
-  if (error) {
-    const originalReqesut = error.config;
-    if (error.response.status === 401 && !originalReqesut._retry) {
-      originalReqesut._retry = true;
-      store.dispatch('logout');
-      router.push('/login');
-    }
-  }
-});
+// axios.interceptors.response.use(undefined, function (error) {
+//   if (error) {
+//     const originalReqesut = error.config;
+//     if (error.response.status === 401 && !originalReqesut._retry) {
+//       originalReqesut._retry = true;
+//       store.dispatch('logout');
+//       router.push('/login');
+//     }
+//   }
+// });
 
 
 const app = createApp(App)

@@ -26,10 +26,17 @@ const actions = {
       await axios.post('login', user);
       await dispatch('viewMe');
     } catch (error) {
-      
       // show warning message
-      console.log(error)
-    }
+      if (error.response) {
+        // console.log(error.response.data);
+        // console.log(error.response.status);
+        // console.log(error.response.headers);
+        if (error.response.status === 401) {
+          // show warning message
+          console.log('Invalid username or password');
+        }
+      }
+    }   
   },
   async viewMe({commit}) {
     let {data} = await axios.get('users/whoami');
