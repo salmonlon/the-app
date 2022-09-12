@@ -12,6 +12,7 @@
             name="title" 
             v-model="form.title" 
             class="form-control" />
+            <div v-if="v$.form.title.$error">Task needs to have a title</div>
         </div>
         <div class="mb-3">
           <label for="content" class="form-label">Note:</label>
@@ -63,8 +64,14 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import useVuelidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
+
 export default {
   name: 'Dashboard',
+  setup () {
+    return { v$: useVuelidate() }
+  },
   data() {
     return {
       form: {
@@ -72,6 +79,14 @@ export default {
         content: '',
       },
     };
+  },
+  validations() {
+    return {
+      form: {
+        title: { required, $lazy: true },
+        content: { },
+      }
+    }
   },
   created: function() {
     return this.$store.dispatch('getActiveNotes');
@@ -85,12 +100,18 @@ export default {
   methods: {
     ...mapActions(['createNote']),
     async submit() {
-      // TODO: prevent submitting empty form
-      await this.createNote(this.form);
-      this.form = {
-        title: '',
-        content: '',
-      };
+      const isFormCorrect = await this.v$.$validate()
+
+      if (!isFormCorrect) {
+        // TODO: show error message
+      } else {
+        await this.createNote(this.form);
+        this.form = {
+          title: '',
+          content: '',
+        };
+      }
+
     },
 
     ...mapActions(['completeNote']),
