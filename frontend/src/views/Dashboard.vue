@@ -105,15 +105,14 @@ export default {
       const isFormCorrect = await this.v$.$validate()
 
       if (isFormCorrect) {
-        this.form.due_date = new Date().toISOString();
-        console.log(this.form)
+        let due_date = new Date()
+        due_date.setHours(17)
+        due_date.setMinutes(0)
+        due_date.setSeconds(0)
+        this.form.due_date = due_date.toISOString()
+        // console.log(this.form);
         await this.createNote(this.form);
         this.$refs.taskForm.reset();
-        // this.form = {
-        //   title: '',
-        //   content: '',
-        //   due_date: '',
-        // };
       } else {
         // TODO: show error message
       }
