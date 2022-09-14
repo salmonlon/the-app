@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional
 
 from pydantic import BaseModel
@@ -10,7 +11,11 @@ from database.models import Notes
 # otherwise the foreign key column will not be available in the models
 Tortoise.init_models(['database.models'], 'models')
 NoteInSchema = pydantic_model_creator(
-    Notes, name="NoteIn", exclude=["author_id"], exclude_readonly=True)
+    Notes, 
+    name="NoteIn", 
+    exclude=["author_id"], 
+    optional=["due_date", "status", "content"],
+    exclude_readonly=True)
 NoteOutSchema = pydantic_model_creator(
     Notes, name="Note", exclude =[
       "modified_at", 
@@ -24,3 +29,4 @@ class UpdateNote(BaseModel):
     title: Optional[str]
     content: Optional[str]
     status: Optional[str]
+    due_date: Optional[datetime]

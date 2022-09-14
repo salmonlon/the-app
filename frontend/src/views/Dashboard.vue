@@ -22,7 +22,8 @@
             class="form-control"
           ></textarea>
         </div>
-        <button type="button" v-on:click="submit" class="btn btn-primary">Today</button>
+        <!-- TODO: use  Vue Gesture for due date selection -->
+        <button type="submit" class="btn btn-primary">Today</button>
       </form>
     </section>
 
@@ -76,7 +77,7 @@ export default {
     return {
       form: {
         title: '',
-        content: '',
+        content: ''
       },
     };
   },
@@ -84,7 +85,8 @@ export default {
     return {
       form: {
         title: { required, $lazy: true },
-        content: { },
+        // content: { },
+        // due_date: { },
       }
     }
   },
@@ -102,14 +104,18 @@ export default {
     async submit() {
       const isFormCorrect = await this.v$.$validate()
 
-      if (!isFormCorrect) {
-        // TODO: show error message
-      } else {
+      if (isFormCorrect) {
+        this.form.due_date = new Date().toISOString();
+        console.log(this.form)
         await this.createNote(this.form);
-        this.form = {
-          title: '',
-          content: '',
-        };
+        this.$refs.taskForm.reset();
+        // this.form = {
+        //   title: '',
+        //   content: '',
+        //   due_date: '',
+        // };
+      } else {
+        // TODO: show error message
       }
 
     },
