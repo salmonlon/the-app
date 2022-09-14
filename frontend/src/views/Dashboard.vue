@@ -22,7 +22,7 @@
             class="form-control"
           ></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" v-on:click="submit" class="btn btn-primary">Today</button>
       </form>
     </section>
 

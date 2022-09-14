@@ -51,7 +51,7 @@ const actions = {
     await axios.patch(`notes/${id}/complete`);
     // TODO: refresh the current note only
     await dispatch('getActiveNotes');
-  }
+  }, 
 };
 
 // make changes to state
