@@ -38,10 +38,14 @@
             <div class="card col">
               <div class="card-body">
                 <ul>
-                  <li><strong>Note Title:</strong> {{ note.title }}</li>
-                  <li> {{ note.status }}</li>
+                  <li>
+                    <!-- <strong>Note Title:</strong>  -->
+                    <router-link :to="{ name: 'Note', params: { id: note.id }}"> {{ note.title }} </router-link>
+                  </li>
+                  <!-- <li> {{ note.status }}</li> -->
+                  <li> Due at {{ format(parseISO(note.due_date), 'MM/dd/yyyy kk:mm') }} </li>
                   <!-- <li><strong>Author:</strong> {{ note.author.username }}</li> -->
-                  <li><router-link :to="{name: 'Note', params:{id: note.id}}">View</router-link></li>
+                  <!-- <li><router-link :to="{name: 'Note', params: { id: note.id }}">View</router-link></li> -->
                 </ul>
 
                 <div class="row row-cols-2 justify-content-around">
@@ -67,11 +71,18 @@
 import { mapGetters, mapActions } from 'vuex';
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
+import { format, parseISO } from 'date-fns'
+// import { utcToZonedTime } from 'date-fns-tz'
 
 export default {
   name: 'Dashboard',
   setup () {
-    return { v$: useVuelidate() }
+    return { 
+      v$: useVuelidate(),
+      format,
+      parseISO,
+      // utcToZonedTime,
+    }
   },
   data() {
     return {
