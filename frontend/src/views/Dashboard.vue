@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="row">
-      <h1>How's your day?</h1>
+      <h1>Focus</h1>
       <hr/>
 
       <form ref="taskForm" @submit.prevent="submit">
@@ -23,7 +23,7 @@
           ></textarea>
         </div>
         <!-- TODO: use  Vue Gesture for due date selection -->
-        <button type="submit" class="btn btn-primary">Today</button>
+        <button type="submit" class="btn btn-primary">Do it now!</button>
       </form>
     </section>
 
@@ -36,22 +36,30 @@
         <div class="row row-cols-3">
           <div v-for="note in notes" :key="note.id" v-bind:id="note.id" class="notes">
             <div class="card col">
+              <div class="card-header">
+                <router-link class="card-link" :to="{ name: 'Note', params: { id: note.id }}">{{ note.title }}</router-link>
+              </div>
+              <!-- <router-link class="card-link" :to="{ name: 'Note', params: { id: note.id }}"> {{ note.title }} </router-link> -->
+              <!-- <li> {{ note.status }}</li> -->
+              
+              <!-- <li><strong>Author:</strong> {{ note.author.username }}</li> -->
+              <!-- <li><router-link :to="{name: 'Note', params: { id: note.id }}">View</router-link></li> -->
+
               <div class="card-body">
-                <ul>
-                  <li>
-                    <!-- <strong>Note Title:</strong>  -->
-                    <router-link :to="{ name: 'Note', params: { id: note.id }}"> {{ note.title }} </router-link>
-                  </li>
-                  <!-- <li> {{ note.status }}</li> -->
-                  <li> Due at {{ format(parseISO(note.due_date), 'MM/dd/yyyy kk:mm') }} </li>
-                  <!-- <li><strong>Author:</strong> {{ note.author.username }}</li> -->
-                  <!-- <li><router-link :to="{name: 'Note', params: { id: note.id }}">View</router-link></li> -->
-                </ul>
+
+                Due by {{ format(parseISO(note.due_date), 'dd/MM/yyyy kk:mm') }} 
+
+              </div>
+
+
+              <div class="card-footer"> 
+
 
                 <div class="row row-cols-2 justify-content-around">
                   <button v-on:click="complete(note.id)" type="button" class="btn btn-success col-5">Done</button>
                   <button type="button" class="btn btn-warning col-5">Later</button>
                 </div>
+
               </div>
             <!-- <br/> -->
             </div>
