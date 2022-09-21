@@ -58,7 +58,20 @@
 
                 <div class="row row-cols-2 justify-content-around">
                   <button v-on:click="complete(note.id)" type="button" class="btn btn-success col-5">Done</button>
-                  <button type="button" class="btn btn-warning col-5">Later</button>
+
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-warning">Tomorrow</button>
+                    <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="sr-only"></span>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Later this week</a>
+                      <a class="dropdown-item" href="#">This weekend</a>
+                      <a class="dropdown-item" href="#">I give up</a>
+                      <!-- <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Separated link</a> -->
+                    </div>
+                  </div>
                 </div>
 
               </div>
