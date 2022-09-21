@@ -35,9 +35,10 @@
       <div v-if="notes.length">
         <div class="row row-cols-3">
           <div v-for="note in notes" :key="note.id" v-bind:id="note.id" class="notes">
-            <div class="card col">
+            <div class="card mb-3" style="max-width: 18rem;">
               <div class="card-header">
-                <router-link class="card-link" :to="{ name: 'Note', params: { id: note.id }}">{{ note.title }}</router-link>
+                <!-- <router-link class="card-link text-white" :to="{ name: 'Note', params: { id: note.id }}">{{ note.title }}</router-link> -->
+                <h5 class="card-title">{{ note.title }}</h5>
               </div>
               <!-- <router-link class="card-link" :to="{ name: 'Note', params: { id: note.id }}"> {{ note.title }} </router-link> -->
               <!-- <li> {{ note.status }}</li> -->
@@ -45,7 +46,7 @@
               <!-- <li><strong>Author:</strong> {{ note.author.username }}</li> -->
               <!-- <li><router-link :to="{name: 'Note', params: { id: note.id }}">View</router-link></li> -->
 
-              <div class="card-body">
+              <div class="card-body" :class="{'text-danger': compareAsc(parseISO(note.due_date), new Date()) < 0}">
 
                 Due by {{ format(parseISO(note.due_date), 'dd/MM/yyyy kk:mm') }} 
 
@@ -79,8 +80,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
-import { format, parseISO } from 'date-fns'
-// import { utcToZonedTime } from 'date-fns-tz'
+import { format, parseISO, compareAsc } from 'date-fns'
 
 export default {
   name: 'Dashboard',
@@ -89,6 +89,7 @@ export default {
       v$: useVuelidate(),
       format,
       parseISO,
+      compareAsc,
       // utcToZonedTime,
     }
   },
