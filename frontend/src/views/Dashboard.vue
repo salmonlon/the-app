@@ -59,16 +59,16 @@
                   <button v-on:click="complete(note.id)" type="button" class="btn btn-success col-5">Done</button>
 
                   <div class="btn-group">
-                    <button type="button" class="btn btn-warning">Tomorrow</button>
+                    <button type="button" class="btn btn-warning" v-on:click="delayNote(note, 'tomorrow')">Tomorrow</button>
                     <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <span class="sr-only"></span>
                     </button>
                     <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Later this week</a>
-                      <a class="dropdown-item" href="#">This weekend</a>
+                      <a class="dropdown-item" v-on:click="delayNote(note, 'later')" href="#">Later this week</a>
+                      <a class="dropdown-item" v-on:click="delayNote(note, 'weekend')" href="#">This weekend</a>
                       <!-- <a class="dropdown-item" href="#">I give up</a> -->
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Delete</a>
+                      <a class="dropdown-item" v-on:click="delete_note(note.id)" href="#">Delete</a>
                     </div>
                   </div>
                 </div>
@@ -99,8 +99,6 @@ export default {
   setup () {
     return { 
       v$: useVuelidate(),
-      format,
-      parseISO,
       // utcToZonedTime,
     }
   },
@@ -141,7 +139,6 @@ export default {
         due_date.setMinutes(0)
         due_date.setSeconds(0)
         this.form.due_date = due_date.toISOString()
-        // console.log(this.form);
         await this.createNote(this.form);
         this.$refs.taskForm.reset();
       } else {
@@ -154,6 +151,40 @@ export default {
     async complete(id) {
       await this.completeNote(id);
     },
+
+    ...mapActions(['updateNote']),
+    async delayNote(note, delayBy) {
+      let due_date = parseISO(note.due_date)
+      // if (due_date < new Date()) {
+      //   due_date = new Date()
+      // }
+      due_date = new Date()
+
+      if (delayBy == 'tomorrow') {
+        due_date.setDate(new Date().getDate() + 1)
+      } else if (delayBy == 'later') {
+        due_date.setDate(new Date().getDate() + 3)
+      } else if (delayBy == 'weekend') {
+        if (due_date.getDay() < 6) {
+          due_date.setDate(new Date().getDate() + (6 - due_date.getDay()))
+        }
+      }
+      note.due_date = due_date.toISOString()
+      let update_note = {
+        id: note.id,
+        form: {
+          due_date: note.due_date
+        }
+      }
+      await this.updateNote(update_note);
+
+      this.$refs.taskForm.reset();
+    },
+
+    ...mapActions(['deleteNote']),
+    async delete_note(id) {
+      await this.deleteNote(id);
+    },
   
     dateOverdue(date) {
       return compareAsc(parseISO(date), new Date()) < 0
@@ -161,7 +192,13 @@ export default {
 
     formatLocal(date) {
       return format(parseISO(date), 'dd/MM/yyyy kk:mm')
-    }
+    },
+
+    delayDateByDays(date, days) {
+      let newDate = parseISO(date)
+      newDate.setDate(newDate.getDate() + days)
+      return newDate
+    },
 
   },
 };

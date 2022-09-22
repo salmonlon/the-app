@@ -43,11 +43,12 @@ const actions = {
     await axios.patch(`notes/${note.id}`, note.form);
   },
   // eslint-disable-next-line no-empty-pattern
-  async deleteNote({}, id) {
+  async deleteNote({dispatch}, id) {
     await axios.delete(`notes/${id}`);
-    // TODO: clear note state
+    await dispatch('getActiveNotes');
   },
   async completeNote({dispatch}, id) {
+    // TODO: remove this action and use update note instead
     await axios.patch(`notes/${id}/complete`);
     // TODO: refresh the current note only
     await dispatch('getActiveNotes');
