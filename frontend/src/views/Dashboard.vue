@@ -22,8 +22,7 @@
             class="form-control"
           ></textarea>
         </div>
-        <!-- TODO: use  Vue Gesture for due date selection -->
-        <button type="submit" class="btn btn-primary">Do it now!</button>
+        <button type="submit" class="btn btn-primary">Today</button>
       </form>
     </section>
 
@@ -46,9 +45,9 @@
               <!-- <li><strong>Author:</strong> {{ note.author.username }}</li> -->
               <!-- <li><router-link :to="{name: 'Note', params: { id: note.id }}">View</router-link></li> -->
 
-              <div class="card-body" :class="{'text-danger': compareAsc(parseISO(note.due_date), new Date()) < 0}">
+              <div class="card-body" :class="{'text-danger': dateOverdue(note.due_date)}">
 
-                Due by {{ format(parseISO(note.due_date), 'dd/MM/yyyy kk:mm') }} 
+                Due by {{ formatLocal(note.due_date) }} 
 
               </div>
 
@@ -67,9 +66,9 @@
                     <div class="dropdown-menu">
                       <a class="dropdown-item" href="#">Later this week</a>
                       <a class="dropdown-item" href="#">This weekend</a>
-                      <a class="dropdown-item" href="#">I give up</a>
-                      <!-- <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Separated link</a> -->
+                      <!-- <a class="dropdown-item" href="#">I give up</a> -->
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Delete</a>
                     </div>
                   </div>
                 </div>
@@ -102,7 +101,6 @@ export default {
       v$: useVuelidate(),
       format,
       parseISO,
-      compareAsc,
       // utcToZonedTime,
     }
   },
@@ -156,6 +154,14 @@ export default {
     async complete(id) {
       await this.completeNote(id);
     },
+  
+    dateOverdue(date) {
+      return compareAsc(parseISO(date), new Date()) < 0
+    },
+
+    formatLocal(date) {
+      return format(parseISO(date), 'dd/MM/yyyy kk:mm')
+    }
 
   },
 };
